@@ -4,6 +4,21 @@
 <script>
 // 早期主题检测：在HTML渲染前设置背景色，避免白屏闪烁
 (function(){
+  // 防止原生壳启动脚本误判 localStorage 无数据导致反复 reload
+  // v11.1+ 主数据迁移到 IndexedDB，localStorage 中此 key 可能不存在，
+  // 但 APK classes.dex 内嵌脚本仍检查此 key，不存在则触发 restore+reload 死循环
+  try {
+    var _sk = 'dream_messenger_data_v2';
+    var _sv = localStorage.getItem(_sk);
+    var _valid = false;
+    if (_sv && _sv !== '{}' && _sv !== 'null') {
+      try { var _sp = JSON.parse(_sv); if (_sp && (_sp.roles || _sp.chats)) _valid = true; } catch(_e) {}
+    }
+    if (!_valid) {
+      localStorage.setItem(_sk, '{"roles":{},"chats":{}}');
+    }
+  } catch(_e) {}
+
   try {
     var raw = localStorage.getItem('dream_messenger_data_v2');
     var theme = localStorage.getItem('app-theme') || '';
