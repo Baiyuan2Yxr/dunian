@@ -20036,6 +20036,7 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
 .gy-pickwrap{ position:relative; width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid rgba(255,255,255,.35);cursor:pointer;flex-shrink:0;}
 .gy-pickwrap input[type=color]{ position:absolute; inset:-6px; width:calc(100% + 12px); height:calc(100% + 12px); border:none; padding:0; cursor:pointer; background:none;}
 .gy-colclose{ width:100%; margin-top:14px; padding:11px 0; border-radius:14px; border:1px solid rgba(180,145,255,.35); background:transparent; color:#d8c9ff; font-size:14px; cursor:pointer;}
+@keyframes agShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 </style>
 </head>
 <body>
@@ -20060,10 +20061,10 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
       <p style="margin:0;text-align:justify;"><b>6.</b> 使用者<strong style="color:#7c3aed;">严禁借助本应用实施违反国家法律法规的行为</strong>，包括但不限于传播违规信息、侵害他人名誉、著作权以及其他合法权益，如若出现违法行为，<strong style="color:#7c3aed;">一切责任由使用者自行承担</strong>。</p>
     </div>
     <label id="age-gate-check-label" style="display:flex;align-items:flex-start;gap:10px;margin:18px 0 16px;cursor:pointer;user-select:none;-webkit-user-select:none;">
-      <input type="checkbox" id="age-gate-checkbox" style="width:18px;height:18px;margin-top:2px;flex:0 0 auto;accent-color:#7c3aed;cursor:pointer;">
+      <input type="checkbox" id="age-gate-checkbox" onclick="if(window.__agSync)__agSync()" onchange="if(window.__agSync)__agSync()" style="width:18px;height:18px;margin-top:2px;flex:0 0 auto;accent-color:#7c3aed;cursor:pointer;">
       <span style="font-size:14px;line-height:1.5;color:#4c1d95;">我确认我已<strong>年满 18 周岁</strong>，并已阅读、同意上述免责声明。</span>
     </label>
-    <button id="age-gate-enter" type="button" disabled style="width:100%;padding:14px 0;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:not-allowed;color:#fff;background:linear-gradient(135deg,#c4b5fd,#a78bfa);box-shadow:0 6px 18px rgba(124,58,237,0.25);transition:opacity .2s,box-shadow .2s;">同意并进入</button>
+    <button id="age-gate-enter" type="button" onclick="if(window.__agEnter)__agEnter()" style="width:100%;padding:14px 0;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;color:#fff;background:linear-gradient(135deg,#c4b5fd,#a78bfa);box-shadow:0 6px 18px rgba(124,58,237,0.25);transition:opacity .2s,box-shadow .2s;">同意并进入</button>
     <p style="margin:14px 0 0;text-align:center;font-size:12px;color:#a78bfa;">未确认前将无法进入应用</p>
   </div>
 </div>
@@ -20072,37 +20073,48 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
   // 网页链接分享版：每次打开都强制显示年龄确认与免责声明，不做任何持久化记忆
   var overlay = document.getElementById("age-gate-overlay");
   if (overlay) { overlay.style.display = "flex"; }
-  function initGate() {
+
+  function sync() {
     var cb = document.getElementById("age-gate-checkbox");
     var btn = document.getElementById("age-gate-enter");
     if (!cb || !btn) { return; }
-    function refresh() {
-      if (cb.checked) {
-        btn.disabled = false;
-        btn.style.cursor = "pointer";
-        btn.style.background = "linear-gradient(135deg,#a78bfa,#7c3aed)";
-        btn.style.boxShadow = "0 8px 22px rgba(124,58,237,0.4)";
-      } else {
-        btn.disabled = true;
-        btn.style.cursor = "not-allowed";
-        btn.style.background = "linear-gradient(135deg,#c4b5fd,#a78bfa)";
-        btn.style.boxShadow = "0 6px 18px rgba(124,58,237,0.25)";
-      }
+    if (cb.checked) {
+      btn.style.cursor = "pointer";
+      btn.style.background = "linear-gradient(135deg,#a78bfa,#7c3aed)";
+      btn.style.boxShadow = "0 8px 22px rgba(124,58,237,0.4)";
+    } else {
+      btn.style.cursor = "pointer";
+      btn.style.background = "linear-gradient(135deg,#c4b5fd,#a78bfa)";
+      btn.style.boxShadow = "0 6px 18px rgba(124,58,237,0.25)";
     }
-    cb.addEventListener("change", refresh);
-    btn.addEventListener("click", function () {
-      if (!cb.checked) { return; }
-      if (overlay && overlay.parentNode) { overlay.parentNode.removeChild(overlay); }
-    });
-    refresh();
   }
+  function enter() {
+    var cb = document.getElementById("age-gate-checkbox");
+    if (cb && cb.checked && overlay && overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    } else if (cb && !cb.checked) {
+      cb = document.getElementById("age-gate-check-label");
+      if (cb) { cb.style.animation = "none"; cb.offsetHeight; cb.style.animation = "agShake .3s"; }
+    }
+  }
+  window.__agSync = sync;
+  window.__agEnter = enter;
+
+  sync();
+  // 多时机同步：兼容浏览器自动恢复勾选态、延迟渲染等情况
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initGate);
-  } else {
-    initGate();
+    document.addEventListener("DOMContentLoaded", sync);
   }
-})();
-</script>
+  window.addEventListener("load", sync);
+  window.addEventListener("pageshow", sync);
+  var n = 0;
+  var t = setInterval(function () { sync(); if (++n >= 10) clearInterval(t); }, 300);
+  var cb2 = document.getElementById("age-gate-checkbox");
+  if (cb2) {
+    cb2.addEventListener("click", sync);
+    cb2.addEventListener("change", sync);
+  }
+})();</script>
 <script>
 (function(){
   function applyH(){
