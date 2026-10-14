@@ -20909,6 +20909,7 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
               <label class="switch" style="margin:0;"><input type="checkbox" id="gy-set-dim"><span class="slider"></span></label>
             </div>
             <button type="button" onclick="gyOpenColor()" style="width:100%;margin-top:6px;padding:10px 0;border-radius:12px;border:1px solid rgba(167,139,250,0.4);background:transparent;color:var(--text-secondary);font-size:13px;cursor:pointer;">🎨 管理各角色灵韵光色</button>
+            <p style="margin:10px 0 0;font-size:11px;line-height:1.6;color:var(--text-muted);">免责声明：本功能为虚拟陪伴娱乐效果，所有感应画面与提示均为程序模拟，不代表任何真实人物的实际位置或状态；摄像头画面仅在本机本地实时处理，不会上传、存储或用于人脸识别。请在获得周围他人知情同意的环境中使用。</p>
           </div>
         </div>
       </div>
@@ -24858,7 +24859,8 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
       </div>
       <div class="form-group">
         <label class="form-label">歌曲/歌单链接</label>
-        <input type="text" class="form-input" id="listen-url" placeholder="粘贴网易云/QQ音乐链接...">
+        <input type="text" class="form-input" id="listen-url" placeholder="粘贴音乐链接">
+        <p style="margin:6px 2px 0;font-size:11px;line-height:1.6;color:var(--text-muted);">请粘贴你有权分享的音乐链接，链接内容由分享者负责</p>
       </div>
       <div class="form-group">
         <label class="form-label">想说的话（可选）</label>
@@ -24885,11 +24887,12 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
         </div>
       </div>
       
-      <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
         <button class="btn btn-ghost" onclick="document.getElementById('read-file-input').click()" style="flex:1;font-size:12px;">📁 上传TXT</button>
         <button class="btn btn-ghost" onclick="openReadClipboardModal()" style="flex:1;font-size:12px;">📋 粘贴导入</button>
         <input type="file" id="read-file-input" accept=".txt" style="display:none;" onchange="handleNovelUpload(event)">
       </div>
+      <p style="margin:0;font-size:11px;line-height:1.6;color:var(--text-muted);">请仅导入你拥有版权或已获授权的文本，内容仅限本机个人阅读使用，请勿传播侵权文件</p>
       
 
     </div>
@@ -25412,7 +25415,8 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
       </div>
       <div class="form-group">
         <label class="form-label">视频链接</label>
-        <input type="text" class="form-input" id="watch-url" placeholder="直接粘贴B站分享链接/嵌入代码/YouTube链接都行">
+        <input type="text" class="form-input" id="watch-url" placeholder="粘贴视频链接">
+        <p style="margin:6px 2px 0;font-size:11px;line-height:1.6;color:var(--text-muted);">请粘贴你有权分享的视频链接，链接内容由分享者负责</p>
       </div>
       <div class="form-group">
         <label class="form-label">想说的话（可选）</label>
@@ -25907,7 +25911,7 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
       
       <div class="cinema-input-group">
         <label class="cinema-input-label">视频链接</label>
-        <input type="text" class="cinema-input" id="cinema-video-url" placeholder="直接粘贴B站分享链接/嵌入代码/YouTube链接都行">
+        <input type="text" class="cinema-input" id="cinema-video-url" placeholder="粘贴视频链接">
       </div>
       
       <div class="cinema-input-group">
@@ -26299,7 +26303,6 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
           <button class="music-folder-icon-btn" onclick="toggleFolderMenu()" title="歌单管理">📁</button>
           <button class="music-folder-icon-btn" id="lib-search-btn" onclick="toggleLibrarySearch()" title="搜索">🔍</button>
           <button class="music-folder-icon-btn" onclick="openLinkImportModal()" title="添加歌曲">➕</button>
-          <button class="music-folder-icon-btn" onclick="openNeteaseSearchModal()" title="在线搜索" style="display:none !important;font-size:11px;width:auto;padding:4px 8px;">在线</button>
         </div>
       </div>
       
@@ -26488,23 +26491,6 @@ body.dark-mode #tts-player-bar .tts-bar-stop {
       <div style="display:flex;gap:12px;justify-content:flex-end;">
         <button onclick="closeLinkImportModal()" style="padding:10px 24px;border-radius:10px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#c4b5fd;cursor:pointer;font-size:14px;">取消</button>
         <button onclick="confirmLinkImport()" style="padding:10px 24px;border-radius:10px;border:none;background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;cursor:pointer;font-size:14px;font-weight:500;">添加播放</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 网易云在线搜索弹窗 -->
-  <div id="netease-search-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:10001;justify-content:center;align-items:center;">
-    <div style="background:#1a102e;border-radius:16px;padding:20px;width:calc(100% - 40px);max-width:400px;max-height:80vh;display:flex;flex-direction:column;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <h3 style="margin:0;font-size:17px;color:#e2d9f3;font-weight:500;">在线搜索</h3>
-        <div onclick="closeNeteaseSearchModal()" style="color:#7c6aa8;cursor:pointer;padding:4px 8px;font-size:18px;">&times;</div>
-      </div>
-      <div style="display:flex;gap:8px;margin-bottom:14px;">
-        <input type="text" id="netease-search-input" placeholder="输入歌名或歌手..." style="flex:1;padding:10px 14px;border-radius:10px;border:1px solid rgba(167,139,250,0.25);background:rgba(255,255,255,0.08);color:#e0d7f5;font-size:14px;outline:none;" onkeydown="if(event.key==='Enter')doNeteaseSearch()">
-        <button onclick="doNeteaseSearch()" style="padding:10px 16px;border-radius:10px;border:none;background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;cursor:pointer;font-size:14px;white-space:nowrap;">搜索</button>
-      </div>
-      <div id="netease-search-results" style="flex:1;overflow-y:auto;min-height:120px;">
-        <div style="color:rgba(255,255,255,0.35);text-align:center;padding:30px 0;font-size:13px;">输入关键词搜索网易云音乐</div>
       </div>
     </div>
   </div>
@@ -76068,7 +76054,7 @@ function initMusicPlayer() {
         onpause="document.getElementById('music-disc').classList.remove('playing');"
       ></audio>`;
     } else {
-      container.innerHTML = `<div style="padding:20px;color:#6b5b95;font-size:12px;">无法解析此链接，请换网易云音乐链接</div>`;
+      container.innerHTML = `<div style="padding:20px;color:#6b5b95;font-size:12px;">无法解析此链接，请换其他音乐链接</div>`;
     }
   }).catch(function() {
     container.innerHTML = `<div style="padding:20px;color:#6b5b95;font-size:12px;">链接解析失败</div>`;
@@ -78038,183 +78024,9 @@ window.openLinkImportModal = openLinkImportModal;
 window.closeLinkImportModal = closeLinkImportModal;
 window.confirmLinkImport = confirmLinkImport;
 
-// ---- 网易云在线搜索 ----
-// 多个公共接口备用，一个挂了自动切下一个
-var NETEASE_API_BASES = [
-  'https://music.mcseekeri.com',
-  'https://ncm.zhenxin.me',
-  'https://zm.i9mr.com',
-  'https://zm.wwoyun.cn'
-];
-
-function openNeteaseSearchModal() {
-  var modal = document.getElementById('netease-search-modal');
-  modal.style.display = 'flex';
-  setTimeout(function() {
-    document.getElementById('netease-search-input').focus();
-  }, 100);
-}
-function closeNeteaseSearchModal() {
-  document.getElementById('netease-search-modal').style.display = 'none';
-}
-
-function doNeteaseSearch() {
-  var keyword = document.getElementById('netease-search-input').value.trim();
-  if (!keyword) { showToast('请输入搜索关键词'); return; }
-  var resultsDiv = document.getElementById('netease-search-results');
-  resultsDiv.innerHTML = '<div style="color:rgba(255,255,255,0.4);text-align:center;padding:30px 0;font-size:13px;">搜索中...</div>';
-  
-  var query = '/search?keywords=' + encodeURIComponent(keyword) + '&limit=20&type=1';
-  var idx = 0;
-  
-  function tryNext() {
-    if (idx >= NETEASE_API_BASES.length) {
-      resultsDiv.innerHTML = '<div style="color:#ef4444;text-align:center;padding:30px 0;font-size:13px;">搜索失败，请稍后重试<br><span style="font-size:11px;color:rgba(255,255,255,0.3);">如接口不可用，请尝试手动添加歌曲</span></div>';
-      return;
-    }
-    var base = NETEASE_API_BASES[idx];
-    var controller = new AbortController();
-    var timeoutId = setTimeout(function() { controller.abort(); }, 8000);
-    fetch(base + query, { signal: controller.signal })
-      .then(function(r) { clearTimeout(timeoutId); return r.json(); })
-      .then(function(data) {
-        if (!data.result || !data.result.songs || data.result.songs.length === 0) {
-          // 有些接口返回格式不同，检查其他可能的结果字段
-          if (data.code === 400 || data.code === 404) {
-            resultsDiv.innerHTML = '<div style="color:rgba(255,255,255,0.35);text-align:center;padding:30px 0;font-size:13px;">没有找到相关歌曲</div>';
-            return;
-          }
-          resultsDiv.innerHTML = '<div style="color:rgba(255,255,255,0.35);text-align:center;padding:30px 0;font-size:13px;">没有找到相关歌曲</div>';
-          return;
-        }
-        renderNeteaseResults(data.result.songs);
-      })
-      .catch(function(err) {
-        console.error('接口 ' + base + ' 失败:', err);
-        idx++;
-        tryNext();
-      });
-  }
-  
-  function renderNeteaseResults(songs) {
-    var html = '';
-    songs.forEach(function(song) {
-      var artists = (song.artists || []).map(function(a) { return a.name; }).join(' / ');
-      var album = song.album || {};
-      var albumPic = album.picUrl || '';
-      var songId = song.id;
-      var fee = song.fee || 0; // 0=免费, 1=VIP, 8=付费
-      var isVip = (fee === 1 || fee === 8);
-      var safeName = escapeHtml(song.name).replace(/'/g, "\\'");
-      var safeArtist = escapeHtml(artists).replace(/'/g, "\\'");
-      html += '<div class="netease-search-item" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;cursor:pointer;transition:background 0.15s;margin-bottom:4px;" onmouseover="this.style.background=\'rgba(167,139,250,0.1)\'" onmouseout="this.style.background=\'transparent\'">';
-      if (albumPic) {
-        html += '<img src="' + albumPic + '?param=80y80" style="width:40px;height:40px;border-radius:4px;object-fit:cover;flex-shrink:0;" onerror="this.style.display=\'none\'">';
-      } else {
-        html += '<div style="width:40px;height:40px;border-radius:4px;background:rgba(167,139,250,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#7c6aa8;"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>';
-      }
-      html += '<div style="flex:1;min-width:0;"><div style="font-size:14px;color:#e2d9f3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + safeName;
-      if (isVip) {
-        html += ' <span style="font-size:10px;color:#fbbf24;background:rgba(251,191,36,0.15);padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle;">VIP</span>';
-      }
-      html += '</div><div style="font-size:12px;color:#7c6aa8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;">' + safeArtist + '</div></div>';
-      html += '<button onclick="event.stopPropagation();addNeteaseSong(' + songId + ',\'' + safeName + '\',\'' + safeArtist + '\',\'' + albumPic + '\',' + fee + ')" style="padding:6px 12px;border-radius:6px;border:none;background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;cursor:pointer;font-size:12px;white-space:nowrap;flex-shrink:0;">添加</button>';
-      html += '</div>';
-    });
-    resultsDiv.innerHTML = html;
-  }
-  
-  tryNext();
-}
-
-// 获取歌曲真实播放地址的专用接口（搜索接口和URL接口分开设配）
-var NETEASE_URL_API_BASES = [
-  { base: 'https://ncm.landdy.cn', path: '/song/url/v1?id=', extra: '&level=standard' },
-  { base: 'http://iwenwiki.com:3000', path: '/song/url?id=', extra: '' }
-];
-
-// 通用函数：根据歌曲ID获取真实播放URL，返回 Promise<string|null>
-function fetchNeteaseSongUrl(songId) {
-  var idx = 0;
-  function tryNext() {
-    if (idx >= NETEASE_URL_API_BASES.length) return Promise.resolve(null);
-    var api = NETEASE_URL_API_BASES[idx];
-    var urlCtrl = new AbortController();
-    var urlTimeout = setTimeout(function() { urlCtrl.abort(); }, 8000);
-    return fetch(api.base + api.path + songId + api.extra, { signal: urlCtrl.signal })
-      .then(function(r) { clearTimeout(urlTimeout); return r.json(); })
-      .then(function(data) {
-        if (data.data && data.data.length > 0 && data.data[0].url) {
-          return data.data[0].url;
-        }
-        idx++;
-        return tryNext();
-      })
-      .catch(function() {
-        idx++;
-        return tryNext();
-      });
-  }
-  return tryNext();
-}
-
-function addNeteaseSong(songId, name, artist, albumPic, fee) {
-  showToast('正在获取播放地址...');
-  fetchNeteaseSongUrl(songId).then(function(realUrl) {
-    if (!realUrl) {
-      showToast('该歌曲暂无可用播放地址（可能需VIP）');
-      return;
-    }
-    var track = {
-      id: 'track_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-      neteaseId: songId,
-      name: name,
-      artist: artist,
-      albumCover: albumPic,
-      onlineUrl: realUrl,
-      uploadTime: Date.now(),
-      duration: 0,
-      fee: fee || 0 // 0=免费, 1=VIP, 8=付费
-    };
-    MusicDB.addTrack(track).then(function() {
-      musicPlayerState.playlist.push({
-        id: track.id, name: track.name, artist: track.artist,
-        duration: 0, objectUrl: null, fee: fee || 0
-      });
-      showToast('已添加: ' + name);
-      renderPlaylist();
-      renderMusicLibrary();
-      playLocalTrack(track.id);
-      closeNeteaseSearchModal();
-    }).catch(function(err) {
-      console.error('添加失败:', err);
-      showToast('添加失败，请重试');
-    });
-  });
-}
-
-window.openNeteaseSearchModal = openNeteaseSearchModal;
-window.closeNeteaseSearchModal = closeNeteaseSearchModal;
-window.doNeteaseSearch = doNeteaseSearch;
-window.addNeteaseSong = addNeteaseSong;
-
-// 点击聊天内音乐卡片播放
-function playChatMusicCard(trackId, neteaseId) {
-  if (trackId) {
-    playLocalTrack(trackId);
-  } else if (neteaseId) {
-    // 通过网易云ID获取真实URL播放
-    showToast('正在获取播放地址...');
-    fetchNeteaseSongUrl(neteaseId).then(function(url) {
-      if (!url) { showToast('该歌曲暂无可用播放地址'); return; }
-      if (!musicPlayerState.audio) {
-        musicPlayerState.audio = new Audio();
-      }
-      musicPlayerState.audio.src = url;
-      musicPlayerState.audio.play().catch(function(e) { showToast('播放失败'); });
-      showToast('正在播放...');
-    });
-  }
+// 点击聊天内音乐卡片播放（仅本地/自定义链接曲目）
+function playChatMusicCard(trackId) {
+  if (trackId) { playLocalTrack(trackId); }
 }
 window.playChatMusicCard = playChatMusicCard;
 
@@ -91620,7 +91432,7 @@ window.gardenBloomDates = function () {
   window.gyBindSettings=bindSettings;
 
   /* ---------- DOM 动态注入 ---------- */
-  var GAN_DOM_HTML = '<div id="gy-scan" aria-label="感应扫描">  <video id="gy-video" autoplay playsinline muted></video>  <canvas id="gy-canvas"></canvas>  <div class="gy-topbar">    <button class="gy-tbtn" id="gy-close" aria-label="退出">✕</button>    <div class="gy-title">感&nbsp;应</div>    <button class="gy-tbtn" id="gy-mode" aria-label="切换光幕">◐</button>  </div>  <div class="gy-hint" id="gy-hint">慢慢转动手机，环顾四周找找 TA</div>  <div class="gy-wordcard" id="gy-wordcard"></div>  <div class="gy-bottom">    <button class="gy-sidebtn" id="gy-again" title="重新感应"><span class="ico">🔄</span>重感</button>    <button class="gy-shutter" id="gy-shutter" aria-label="拍下"></button>    <button class="gy-sidebtn" id="gy-tune" title="光色"><span class="ico">🎨</span>光色</button>  </div>  <div class="gy-flash" id="gy-flash"></div>  <div class="gy-perm" id="gy-perm">    <div class="big">🌫️</div>    <p id="gy-perm-text">感应需要打开摄像头，借真实光影看见 TA 的灵韵。</p>    <button id="gy-perm-ask">允许使用摄像头</button>    <button class="ghost" id="gy-perm-dim">先用纯光幕感应</button>  </div></div><div class="gy-colmodal" id="gy-colmodal">  <div class="gy-colsheet">    <h3>灵韵光色</h3>    <div class="sub">为每个角色挑一种随身的光。黑色 = 吸光的幽洞，只余一圈冷辉。</div>    <div id="gy-collist"></div>    <button class="gy-colclose" id="gy-colclose">完成</button>  </div></div>';
+  var GAN_DOM_HTML = '<div id="gy-scan" aria-label="感应扫描">  <video id="gy-video" autoplay playsinline muted></video>  <canvas id="gy-canvas"></canvas>  <div class="gy-topbar">    <button class="gy-tbtn" id="gy-close" aria-label="退出">✕</button>    <div class="gy-title">感&nbsp;应</div>    <button class="gy-tbtn" id="gy-mode" aria-label="切换光幕">◐</button>  </div>  <div class="gy-hint" id="gy-hint">慢慢转动手机，环顾四周找找 TA</div>  <div class="gy-wordcard" id="gy-wordcard"></div>  <div class="gy-bottom">    <button class="gy-sidebtn" id="gy-again" title="重新感应"><span class="ico">🔄</span>重感</button>    <button class="gy-shutter" id="gy-shutter" aria-label="拍下"></button>    <button class="gy-sidebtn" id="gy-tune" title="光色"><span class="ico">🎨</span>光色</button>  </div>  <div class="gy-flash" id="gy-flash"></div>  <div class="gy-perm" id="gy-perm">    <div class="big">🌫️</div>    <p id="gy-perm-text">感应需要打开摄像头，借真实光影看见 TA 的灵韵。</p>    <button id="gy-perm-ask">允许使用摄像头</button>    <button class="ghost" id="gy-perm-dim">先用纯光幕感应</button>    <p style="margin:14px 4px 0;font-size:11px;line-height:1.6;color:rgba(255,255,255,0.5);">画面仅在本机实时处理，不会上传、存储或用于人脸识别；感应结果为虚构娱乐效果，不代表任何真实人物状态。</p>  </div></div><div class="gy-colmodal" id="gy-colmodal">  <div class="gy-colsheet">    <h3>灵韵光色</h3>    <div class="sub">为每个角色挑一种随身的光。黑色 = 吸光的幽洞，只余一圈冷辉。</div>    <div id="gy-collist"></div>    <button class="gy-colclose" id="gy-colclose">完成</button>  </div></div>';
   var _domReady=false;
   function bootstrap(){
     if(_domReady) return; _domReady=true;
